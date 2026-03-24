@@ -1,0 +1,292 @@
+
+html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Gilded Fork | Modern Gastronomy</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-body: #0a0a0c;
+            --bg-card: #161619;
+            --text-main: #e4e4e7;
+            --text-muted: #a1a1aa;
+            --accent: #d4a373; 
+            --glass: rgba(22, 22, 25, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --transition: 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--bg-body); 
+            color: var(--text-main); 
+            line-height: 1.6; 
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* Navigation */
+        nav { 
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 1.2rem 5%;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .logo { font-size: 1.4rem; font-weight: 800; color: var(--accent); letter-spacing: 3px; }
+        .nav-links a { text-decoration: none; color: var(--text-muted); margin-left: 25px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; transition: var(--transition); }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero */
+        .hero { 
+            height: 70vh; 
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)), 
+                        url('https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;
+        }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin-bottom: 1rem; }
+        .hero p { color: var(--text-muted); max-width: 600px; margin-bottom: 2rem; }
+
+        /* Container & Titles */
+        .container { max-width: 1200px; margin: auto; padding: 5rem 5%; }
+        .section-header { text-align: center; margin-bottom: 4rem; }
+        .section-header h2 { font-size: 3rem; color: var(--accent); margin-bottom: 0.5rem; }
+
+        /* Tabs */
+        .menu-tabs { display: flex; justify-content: center; gap: 10px; margin-bottom: 3rem; flex-wrap: wrap; }
+        .tab-btn { 
+            padding: 10px 24px; border: 1px solid var(--glass-border); background: var(--bg-card); color: var(--text-muted);
+            cursor: pointer; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; transition: var(--transition); border-radius: 2px;
+        }
+        .tab-btn.active, .tab-btn:hover { background: var(--accent); color: var(--bg-body); border-color: var(--accent); }
+
+        /* THE GRID */
+        .menu-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
+            gap: 30px; 
+        }
+
+        .menu-item { 
+            background: var(--bg-card); 
+            border: 1px solid var(--glass-border); 
+            transition: var(--transition);
+            position: relative;
+        }
+        .menu-item:hover { transform: translateY(-10px); border-color: var(--accent); }
+
+        .img-box { width: 100%; aspect-ratio: 1 / 1; overflow: hidden; position: relative; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; transition: 0.8s var(--ease); }
+        .menu-item:hover .img-box img { transform: scale(1.1); }
+        
+        .badge { 
+            position: absolute; top: 15px; right: 15px; font-size: 0.6rem; padding: 4px 10px; 
+            color: white; font-weight: bold; text-transform: uppercase; z-index: 2;
+        }
+        .badge.veg { background: #27ae60; }
+        .badge.non-veg { background: #c0392b; }
+        .badge.drink { background: #2980b9; }
+
+        .menu-info { padding: 25px; }
+        .menu-info h4 { font-size: 1.2rem; margin-bottom: 8px; color: var(--text-main); font-family: 'Inter'; }
+        .price { color: var(--accent); font-weight: bold; font-family: 'Playfair Display'; font-size: 1.3rem; float: right; }
+        .desc { font-size: 0.9rem; color: var(--text-muted); margin-top: 10px; border-top: 1px solid var(--glass-border); padding-top: 10px; }
+
+        .hidden { display: none; }
+
+        /* Booking & Contact */
+        .footer-section { background: var(--bg-card); border-top: 1px solid var(--glass-border); padding: 5rem 5%; }
+        .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 60px; max-width: 1200px; margin: auto; }
+        
+        .booking-card { background: var(--bg-body); padding: 40px; border: 1px solid var(--glass-border); }
+        input, select { width: 100%; padding: 15px; background: var(--bg-card); border: 1px solid var(--glass-border); color: white; margin-bottom: 15px; }
+        .btn-submit { background: var(--accent); color: var(--bg-body); border: none; padding: 15px; width: 100%; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+
+        .contact-info h3 { color: var(--accent); font-size: 2rem; margin-bottom: 20px; }
+        .contact-info p { margin-bottom: 10px; color: var(--text-muted); }
+
+        @media (max-width: 900px) {
+            .footer-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">GILDED</div>
+        <div class="nav-links">
+            <a href="#menu">Menu</a>
+            <a href="#booking">Booking</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Refined Dining.</h1>
+        <p>A culinary destination for those who appreciate the finer details of modern gastronomy.</p>
+    </header>
+
+    <main class="container" id="menu">
+        <div class="section-header">
+            <h2>Our Menu</h2>
+            <p>Seasonal ingredients, expertly prepared.</p>
+        </div>
+
+        <div class="menu-tabs">
+            <button class="tab-btn active" onclick="filterMenu('all', this)">All</button>
+            <button class="tab-btn" onclick="filterMenu('veg', this)">Vegetarian</button>
+            <button class="tab-btn" onclick="filterMenu('non-veg', this)">Non-Veg</button>
+            <button class="tab-btn" onclick="filterMenu('drink', this)">Drinks</button>
+        </div>
+
+        <div class="menu-grid">
+            
+            <div class="menu-item veg">
+                <div class="img-box">
+                    <span class="badge veg">Veg</span>
+                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=600" alt="Salad">
+                </div>
+                <div class="menu-info">
+                    <span class="price">$16</span>
+                    <h4>Harvest Bowl</h4>
+                    <p class="desc">Roasted roots, kale, wild rice, and lemon tahini.</p>
+                </div>
+            </div>
+
+            <div class="menu-item veg">
+                <div class="img-box">
+                    <span class="badge veg">Veg</span>
+                    <img src="https://images.unsplash.com/photo-1597393353415-b3730f3719fe?w=600" alt="Risotto">
+                </div>
+                <div class="menu-info">
+                    <span class="price">$24</span>
+                    <h4>Truffle Risotto</h4>
+                    <p class="desc">Foraged mushrooms, parmesan, and black truffle oil.</p>
+                </div>
+            </div>
+
+            <div class="menu-item non-veg">
+                <div class="img-box">
+                    <span class="badge non-veg">Non-Veg</span>
+                    <img src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=600" alt="Steak">
+                </div>
+                <div class="menu-info">
+                    <span class="price">$42</span>
+                    <h4>Prime Ribeye</h4>
+                    <p class="desc">300g Grass-fed beef with bone marrow butter.</p>
+                </div>
+            </div>
+
+            <div class="menu-item non-veg">
+                <div class="img-box">
+                    <span class="badge non-veg">Non-Veg</span>
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?w=600" alt="Lamb Shank">
+                </div>
+                <div class="menu-info">
+                    <span class="price">$36</span>
+                    <h4>Braised Lamb Shank</h4>
+                    <p class="desc">12-hour slow braise with red wine and creamy polenta.</p>
+                </div>
+            </div>
+
+            <div class="menu-item drink">
+                <div class="img-box">
+                    <span class="badge drink">Drink</span>
+                    <img src="https://images.unsplash.com/photo-1536935338788-846bb9981813?w=600" alt="Cocktail">
+                </div>
+                <div class="menu-info">
+                    <span class="price">$15</span>
+                    <h4>Gold Standard G&T</h4>
+                    <p class="desc">Botanical gin, elderflower, and gold leaf garnish.</p>
+                </div>
+            </div>
+
+            <div class="menu-item drink">
+                <div class="img-box">
+                    <span class="badge drink">Drink</span>
+                    <img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600" alt="Smoothie">
+                </div>
+                <div class="menu-info">
+                    <span class="price">$9</span>
+                    <h4>Berry Fusion</h4>
+                    <p class="desc">Fresh forest berries, greek yogurt, and honey.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer-section">
+        <div class="footer-grid">
+            
+            <form id="resForm">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+    <input type="tel" id="phone" placeholder="Phone Number" required>
+
+    <div style="display: flex; gap: 10px;">
+        <input type="date" id="date" required>
+        <select id="guests">
+            <option value="2">2 People</option>
+            <option value="4">4 People</option>
+            <option value="6">6+ People</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn-submit">Book Now</button>
+</form>
+
+            <div class="contact-info" id="contact">
+                <h3>Contact</h3>
+                <p>📍 123 Culinary Drive, Food District</p>
+                <p>📞 +1 (555) 010-9988</p>
+                <p>✉️ hello@gildedfork.com</p>
+                <div style="height: 150px; background: #000; margin-top: 20px; border: 1px solid var(--glass-border); display: flex; align-items: center; justify-content: center; color: #444;">Map Placeholder</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+document.getElementById('resForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        date: document.getElementById('date').value,
+        guests: document.getElementById('guests').value
+    };
+
+    try {
+        const response = await fetch('http://localhost:3000/api/book', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+        alert(result.message);
+
+        document.getElementById('resForm').reset();
+
+    } catch (error) {
+        alert("❌ Server error");
+        console.error(error);
+    }
+});
+</script>
+</body>
+</html>
