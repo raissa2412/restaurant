@@ -1,5 +1,4 @@
-// script.js
-document.getElementById('bookingForm').addEventListener('submit', function(event) {
+document.getElementById('resForm').addEventListener('submit', function(event) {
     event.preventDefault();
 
     // Get values
@@ -7,8 +6,8 @@ document.getElementById('bookingForm').addEventListener('submit', function(event
     const date = document.getElementById('date').value;
     const feedback = document.getElementById('formFeedback');
 
-    // Simulate sending data to the Backend (as per your flowchart)
-    feedback.innerHTML = `Success! Thank you ${name}. We have reserved a spot for you on ${date}.`;
+    // Show success message
+    feedback.innerHTML = `🎉 Thank you ${name}! Your table is booked for ${date}.`;
     feedback.classList.remove('hidden');
     feedback.classList.add('success');
 

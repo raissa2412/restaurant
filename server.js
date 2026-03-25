@@ -33,26 +33,10 @@ connection.connect(err => {
 
 // ✅ API: Insert Booking
 app.post('/api/book', (req, res) => {
-    const { name, email, phone, date, guests } = req.body;
-
-    if (!name || !email || !phone || !date || !guests) {
-        return res.status(400).json({ message: "All fields are required!" });
-    }
-
-    const sql = `
-        INSERT INTO reservations (name, email, phone, res_date, guests)
-        VALUES (?, ?, ?, ?, ?)
-    `;
-
-    connection.query(sql, [name, email, phone, date, guests], (err, result) => {
-        if (err) {
-            console.error("❌ DB Error:", err);
-            return res.status(500).json({ message: "Database error" });
-        }
-
-        res.json({ message: "✅ Reservation successful!" });
-    });
+    console.log("Data received:", req.body);
+    res.json({ message: "API working ✅" });
 });
+
 
 // ✅ API: Get all bookings (for testing)
 app.get('/api/bookings', (req, res) => {

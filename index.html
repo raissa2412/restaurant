@@ -1,11 +1,10 @@
-
 html
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Gilded Fork | Modern Gastronomy</title>
+    <title>The Gilded Fork | Modern Gastronomy</title> remove booking option from the code and again gv me full code removing it 
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
     
@@ -125,10 +124,10 @@ html
     <nav>
         <div class="logo">GILDED</div>
         <div class="nav-links">
-            <a href="#menu">Menu</a>
-            <a href="#booking">Booking</a>
-            <a href="#contact">Contact</a>
-        </div>
+    <a href="#menu">Menu</a>
+    <a href="#contact">Contact</a>
+    <a href="portfolio.html">Portfolio</a>
+</div>
     </nav>
 
     <header class="hero">
@@ -142,12 +141,12 @@ html
             <p>Seasonal ingredients, expertly prepared.</p>
         </div>
 
-        <div class="menu-tabs">
-            <button class="tab-btn active" onclick="filterMenu('all', this)">All</button>
-            <button class="tab-btn" onclick="filterMenu('veg', this)">Vegetarian</button>
-            <button class="tab-btn" onclick="filterMenu('non-veg', this)">Non-Veg</button>
-            <button class="tab-btn" onclick="filterMenu('drink', this)">Drinks</button>
-        </div>
+      <div class="menu-tabs">
+    <button class="tab-btn" onclick="filterMenu('all')">All</button>
+    <button class="tab-btn" onclick="filterMenu('veg')">Vegetarian</button>
+    <button class="tab-btn" onclick="filterMenu('non-veg')">Non-Veg</button>
+    <button class="tab-btn" onclick="filterMenu('drink')">Drinks</button>
+</div>
 
         <div class="menu-grid">
             
@@ -256,7 +255,25 @@ html
         </div>
     </footer>
 
-    <script>
+<script>
+
+// ✅ FILTER FUNCTION (FIXED)
+function filterMenu(category) {
+    const items = document.querySelectorAll('.menu-item');
+
+    items.forEach(item => {
+        if (category === 'all') {
+            item.style.display = "block";
+        } else if (item.classList.contains(category)) {
+            item.style.display = "block";
+        } else {
+            item.style.display = "none";
+        }
+    });
+}
+
+
+// ✅ BOOKING FORM (CLEAN - NO ERRORS)
 document.getElementById('resForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
@@ -271,22 +288,21 @@ document.getElementById('resForm').addEventListener('submit', async function(e) 
     try {
         const response = await fetch('http://localhost:3000/api/book', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
         });
 
-        const result = await response.json();
-        alert(result.message);
+        await response.json();
+
+        alert(`🎉 Thank you ${data.name}! Your table is booked for ${data.date}.`);
 
         document.getElementById('resForm').reset();
 
     } catch (error) {
         alert("❌ Server error");
-        console.error(error);
     }
 });
+
 </script>
 </body>
 </html>

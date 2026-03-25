@@ -65,3 +65,115 @@ input, select, button {
 
 .hidden { display: none; }
 .success { color: green; font-weight: bold; margin-top: 10px; }
+/* Portfolio Button Styling */
+.portfolio-btn {
+    background: #e67e22;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    display: inline-block;
+    margin-top: 15px;
+    transition: 0.3s;
+}
+
+.portfolio-btn:hover {
+    background: #cf711f;
+    transform: scale(1.05);
+}
+/* 🔥 Strong visible Portfolio Button */
+.portfolio-btn {
+    background-color: #e67e22 !important;
+    color: #ffffff !important;
+    padding: 14px 28px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 16px;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    opacity: 1 !important;
+    visibility: visible !important;
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.portfolio-btn:hover {
+    background-color: #cf711f !important;
+    transform: scale(1.08);
+}
+/* Fix button visibility inside hero */
+.hero a {
+    position: relative;
+    z-index: 2;
+}
+.portfolio-btn {
+    background-color: #e67e22 !important;
+    color: white !important;
+}
+/* 🔥 Make Portfolio button visible */
+.portfolio-btn {
+    position: fixed;          /* stick it nicely */
+    bottom: 20px;
+    left: 20px;
+
+    background: #e67e22;
+    color: white !important;
+    padding: 12px 20px;
+    border-radius: 25px;
+
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 14px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    z-index: 999;
+}
+
+/* remove ugly purple link */
+.portfolio-btn:visited {
+    color: white;
+}
+
+.portfolio-btn:hover {
+    background: #cf711f;
+    transform: scale(1.05);
+}
+nav a {
+    color: #e67e22;
+    margin-left: 20px;
+    text-decoration: none;
+}
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 25px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* hover effect */
+nav a:hover {
+    color: #e67e22;
+}
+nav a:last-child {
+    color: #e67e22;
+    font-weight: bold;
+}
+
+#formFeedback {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.success {
+    background: #1e2a1e;
+    color: #2ecc71;
+    border-left: 4px solid #2ecc71;
+}
+
+.hidden {
+    display: none;
+}
