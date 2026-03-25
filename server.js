@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
@@ -6,13 +7,13 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// 🔐 Database Config (CHANGE PASSWORD AFTER PROJECT)
+// Database Config
 const dbConfig = {
-    host: 'gateway01.ap-southeast-1.prod.aws.tidbcloud.com',
-    port: 4000,
-    user: '2cs3gygaCf5WzEn.root',
-    password: 'q0Jga5XKpBaVlpwH',
-    database: 'test',
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     ssl: {
         minVersion: 'TLSv1.2',
         rejectUnauthorized: false
@@ -31,14 +32,29 @@ connection.connect(err => {
     console.log('✅ Connected to TiDB Cloud!');
 });
 
-// ✅ API: Insert Booking
+// API: Insert Booking
 app.post('/api/book', (req, res) => {
-    console.log("Data received:", req.body);
-    res.json({ message: "API working ✅" });
+    const { name, email, phone, date, guests } = req.body;
+
+    console.log("Received:", req.body);
+
+    const sql = `
+        INSERT INTO reservations (name, email, phone, res_date, guests)
+        VALUES (?, ?, ?, ?, ?)
+    `;
+
+    connection.query(sql, [name, email, phone, date, guests], (err, result) => {
+        if (err) {
+            console.error("Insert error:", err);
+            return res.status(500).json({ message: "Database insert failed" });
+        }
+
+        console.log("Inserted successfully:", result);
+        res.json({ message: "Booking successful" });
+    });
 });
 
-
-// ✅ API: Get all bookings (for testing)
+// API: Get all bookings
 app.get('/api/bookings', (req, res) => {
     connection.query("SELECT * FROM reservations", (err, results) => {
         if (err) {
