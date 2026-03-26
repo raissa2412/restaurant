@@ -286,7 +286,7 @@ document.getElementById('resForm').addEventListener('submit', async function(e) 
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/book', {
+        const response = await fetch('https://restaurant-e6ta.onrender.com/api/book', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
